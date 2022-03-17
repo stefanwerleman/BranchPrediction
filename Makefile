@@ -1,7 +1,8 @@
 CPP = g++
 OPT = -O3
-OPT = -g
+# OPT = -g
 WARN = -Wall -Wextra
+LOG = -I "./external/spdlog/include"
 CFLAGS = $(OPT) $(WARN) $(INC) $(LIB)
 
 # Other directories
@@ -20,12 +21,12 @@ SIM_OBJ = ./src/main_sim.o
 
 # default rule
 
+# Main Simulation run for TA
 all: sim
 	@echo "my work is done here..."
 
 
 # rule for making sim_cache
-
 sim: $(SIM_OBJ)
 	$(CPP) -o sim $(CFLAGS) $(SIM_OBJ) $(OPT) -lm
 	@if [ ! -d $(BUILD) ]; then mkdir $(BUILD); fi
@@ -33,10 +34,13 @@ sim: $(SIM_OBJ)
 	@echo "-----------DONE WITH SIM-----------"
 
 
-# generic rule for converting any .cc file to any .o file
- 
-.cc.o:
-	$(CPP) $(CFLAGS)  -c $*.cc
+$(SIM_OBJ): $(SIM_SRC)
+	$(CPP) -c $(SIM_SRC) -o $(SIM_OBJ) $(LOG)
+
+# generic rule for converting any .cc file to any .o file 
+
+# .cc.o:
+# $(CPP) $(CFLAGS) -c $*.cc
 
 
 detect_leak:
@@ -54,7 +58,6 @@ clean:
 	rm -f $(BUILD)*.o sim
 	rm -f $(SRC)*.o sim
 	rm -rf ./build
-	rm sim
 
 
 # type "make clobber" to remove all .o files (leaves sim_cache binary)

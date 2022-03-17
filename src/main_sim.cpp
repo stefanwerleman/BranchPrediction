@@ -1,7 +1,9 @@
 #include <iostream>
 
+#include "spdlog/spdlog.h"
+
 int main(void)
 {
-    std::cout << "Hello World!" << std::endl;
+    spdlog::error("ERROR");
     return 0;
 }
