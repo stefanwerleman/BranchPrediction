@@ -4,6 +4,6 @@
 
 int main(void)
 {
-    spdlog::error("ERROR");
+    std::cout << "Hello World!" << std::endl;
     return 0;
 }
