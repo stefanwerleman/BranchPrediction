@@ -12,10 +12,10 @@ SRC = ./src/
 TEST = ./tests/
 
 # List all your .cpp files here (source files, excluding header files)
-SIM_SRC = ./src/main_sim.cpp
+SIM_SRC = ./src/main_sim.cpp ./libs/ArgumentWrapper/ArgumentWrapper.cpp
 
 # List corresponding compiled object files here (.o files)
-SIM_OBJ = ./src/main_sim.o
+SIM_OBJ = ./src/main_sim.o ./libs/ArgumentWrapper/ArgumentWrapper.o
  
 #################################
 
@@ -30,18 +30,14 @@ all: sim
 sim: $(SIM_OBJ)
 	$(CPP) -o sim $(CFLAGS) $(SIM_OBJ) $(OPT) -lm
 	@if [ ! -d $(BUILD) ]; then mkdir $(BUILD); fi
-	@mv $(SRC)*.o ./build/
+	@mv $(SRC)*.o $(BUILD)
+	@mv $(LIBS)*/*.o $(BUILD)
 	@echo "-----------DONE WITH SIM-----------"
-
-
-$(SIM_OBJ): $(SIM_SRC)
-	$(CPP) -c $(SIM_SRC) -o $(SIM_OBJ) $(LOG)
 
 # generic rule for converting any .cc file to any .o file 
 
-# .cc.o:
-# $(CPP) $(CFLAGS) -c $*.cc
-
+.cc.o:
+	$(CPP) $(CFLAGS) -c $*.cc
 
 detect_leak:
 	@echo "-----------DETECTING MEMORY LEAKS-----------"
