@@ -4,12 +4,15 @@
 #include <string>
 
 #include "../libs/ArgumentWrapper/ArgumentWrapper.h"
+#include "../libs/Bimodal/Bimodal.h"
+#include "../libs/Controller/Controller.h"
+#include "../libs/GShare/GShare.h"
+#include "../libs/Hybrid/Hybrid.h"
+#include "../libs/Smith/Smith.h"
 #include "../libs/utils/utils.h"
 
 void run_sim(ArgumentWrapper arguments)
 {
-    std::cout << "RUNNING SIM WITH:\t" << arguments;
-
     std::fstream file("./data/traces/" + arguments.trace_file);
 
     if (!file.is_open())
@@ -18,22 +21,63 @@ void run_sim(ArgumentWrapper arguments)
         return;
     }
 
-    std::string in;
+    Controller *ctrl = NULL;
 
-    while (file >> in)
+    if (arguments.predictor == "bimodal")
     {
-        std::string address = in;
-
-        file >> in;
-        char state = in[0];
-        utils::branch current_branch = utils::process_branch(address, state);
+        Bimodal b;
+        ctrl = new Controller(b);
     }
+    else if (arguments.predictor == "gshare")
+    {
+        GShare g;
+        ctrl = new Controller(g);
+    }
+    else if (arguments.predictor == "hybrid")
+    {
+        Hybrid h;
+        ctrl = new Controller(h);
+    }
+    else if (arguments.predictor == "smith")
+    {
+        Smith s;
+        ctrl = new Controller(s);
+    }
+
+    // std::string in;
+
+    // while (file >> in)
+    // {
+    //     std::string address = in;
+
+    //     file >> in;
+    //     char state = in[0];
+    //     utils::branch current_branch = utils::process_branch(address, state);
+        
+    //     if (arguments.predictor == "bimodal")
+    //     {
+            
+    //     }
+    //     else if (arguments.predictor == "gshare")
+    //     {
+            
+    //     }
+    //     else if (arguments.predictor == "hybrid")
+    //     {
+            
+    //     }
+    //     else if (arguments.predictor == "smith")
+    //     {
+            
+    //     }   
+    // }
+
+    delete ctrl;
 }
 
 int main(int argc, char **argv)
 {
     auto start = std::chrono::system_clock::now();
-    std::cout << "START OF BRANCH PREDICTION" << std::endl;
 
     if (argc < 4 || argc > 7)
     {
@@ -45,7 +89,6 @@ int main(int argc, char **argv)
 
     run_sim(arguments);
 
-    std::cout << "END OF BRANCH PREDICTION" << std::endl;
     auto end = std::chrono::system_clock::now();
 
     std::chrono::duration<double> elapsed_time = end - start;

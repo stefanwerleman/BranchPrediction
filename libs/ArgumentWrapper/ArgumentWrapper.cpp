@@ -7,8 +7,6 @@ const int UNDEFINED = -1;
 
 ArgumentWrapper::ArgumentWrapper (int argc, char **argv)
 {
-    std::cout << "ARGUMENT RECEIVED:\t" << "{argc: " << argc << ", argv: " << argv << "}" << std::endl;
-
     this->B = UNDEFINED;
     this->M1 = UNDEFINED;
     this->M2 = UNDEFINED;
