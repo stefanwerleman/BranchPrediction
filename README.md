@@ -17,6 +17,9 @@
 		<li><a href="#example">Example</a></li>
 	</ul>
     </li>
+    <li>
+      <a href="#testing-on_eustis-3">Testing on Eustis 3</a>
+    </li>
     <li><a href="#license">License</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -125,6 +128,42 @@ make clobber
 ```
 
 ## Example
+
+# Testing on Eustis 3
+
+To connect to eustis 3:
+
+```bash
+YOUR_NID@eustis3.eecs.ucf.edu
+```
+
+Enter your NID password and then run:
+
+```bash
+cd BranchPrediction/
+make
+./sim [with parameters]
+```
+
+## Getting Project Folder
+
+Before logging into eustis 3, transfer the project folder:
+
+```bash
+scp -r BranchPrediction/ YOUR_NID@eustis3.eecs.ucf.edu:~/
+```
+
+Then, enter you credentials.
+
+OR
+
+Clone the project from GitHub:
+
+```bash
+git clone https://github.com/stefanwerleman/BranchPrediction.git
+
+cd BranchPrediction/
+```
 
 # License
 
