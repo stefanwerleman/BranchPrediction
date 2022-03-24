@@ -1,4 +1,3 @@
-// Child class of the GShare class
 #ifndef BIMODAL
 #define BIMODAL
 
@@ -9,6 +8,8 @@ class Bimodal
     public:
         unsigned int M2;
         std::string tracefile;
+
+        void run();
 };
 
 #endif
