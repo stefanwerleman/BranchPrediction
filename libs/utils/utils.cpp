@@ -4,11 +4,11 @@
 
 #include "utils.h"
 
-utils::branch utils::process_branch(std::string address, char state)
+utils::branch utils::process_branch(std::string address, char outcome)
 {
     utils::branch new_branch;
 
-    new_branch.state = state;
+    new_branch.outcome = outcome;
     new_branch.address = address;
 
     return new_branch;

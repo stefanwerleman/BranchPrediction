@@ -60,12 +60,6 @@ then
 
     echo "======================VAL_SMITH_3========================"
     ./sim smith 4 perl_trace.txt
-
-    elif [ $1 == 10 ]
-    then
-
-    echo "======================VAL_SMITH_3========================"
-    ./sim smith 4 perl_trace.txt
     fi
 
 else

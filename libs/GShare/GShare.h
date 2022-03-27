@@ -9,6 +9,8 @@ class GShare
         unsigned int M1;
         unsigned int N;
         std::string tracefile;
+
+        void run();
 };
 
 #endif

@@ -40,14 +40,27 @@ ArgumentWrapper::ArgumentWrapper (int argc, char **argv)
 
 std::ostream& operator << (std::ostream &output, ArgumentWrapper arguments)
 {
-    output << "{" << "B: " << arguments.B;
-    output << ", M1: " << arguments.M1;
-    output << ", M2: " << arguments.M2;
-    output << ", K: " << arguments.K;
-    output << ", N: " << arguments.N;
-    output << ", trace_file: " << arguments.trace_file;
-    output << ", predictor: " << arguments.predictor;
-    output << "}" << std::endl;
+    output << "./sim ";
+    output << arguments.predictor << " ";
+
+    if (arguments.predictor == "bimodal")
+    {
+        
+    }
+    else if (arguments.predictor == "gshare")
+    {
+        
+    }
+    else if (arguments.predictor == "hybrid")
+    {
+        
+    }
+    else if (arguments.predictor == "smith")
+    {
+        output << arguments.B << " ";
+    }
+    
+    output << arguments.trace_file << std::endl;
 
     return output;
 }

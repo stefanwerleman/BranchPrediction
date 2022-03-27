@@ -1,5 +1,6 @@
 #include <chrono>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 
@@ -10,6 +11,35 @@
 #include "../libs/Hybrid/Hybrid.h"
 #include "../libs/Smith/Smith.h"
 #include "../libs/utils/utils.h"
+
+void print_results(ArgumentWrapper arguments, Controller *ctrl)
+{
+    std::cout << "COMMAND" << std::endl;
+    std::cout << arguments;
+    std::cout << "OUTPUT" << std::endl;
+    std::cout << "number of predictions:     " << ctrl->num_pred << std::endl;
+    std::cout << "number of mispredictions:  " << ctrl->num_misses << std::endl;
+    
+    double miss_rate = ((double)ctrl->num_misses / ctrl->num_pred) * 100;
+    std::cout << "misprediction rate:        " << std::setprecision(4) << miss_rate << "%" << std::endl;
+
+    if (arguments.predictor == "bimodal")
+    {
+        std::cout << "FINAL BIMODAL CONTENTS" << std::endl;
+    }
+    else if (arguments.predictor == "gshare")
+    {
+        std::cout << "FINAL GSHARE CONTENTS" << std::endl;
+    }
+    else if (arguments.predictor == "hybrid")
+    {
+        std::cout << "FINAL CHOOSER CONTENTS" << std::endl;
+    }
+    else if (arguments.predictor == "smith")
+    {
+    std::cout << "FINAL COUNTER CONTENT:     " << ctrl->s->smith_bit << std::endl;
+    }
+}
 
 void run_sim(ArgumentWrapper arguments)
 {
@@ -40,37 +70,41 @@ void run_sim(ArgumentWrapper arguments)
     }
     else if (arguments.predictor == "smith")
     {
-        Smith s;
+        Smith s(arguments.B);
         ctrl = new Controller(s);
     }
 
-    // std::string in;
+    std::string in;
 
-    // while (file >> in)
-    // {
-    //     std::string address = in;
+    while (file >> in)
+    {
+        std::string address = in;
 
-    //     file >> in;
-    //     char state = in[0];
-    //     utils::branch current_branch = utils::process_branch(address, state);
+        file >> in;
+        char outcome = in[0];
+        utils::branch current_branch = utils::process_branch(address, outcome);
         
-    //     if (arguments.predictor == "bimodal")
-    //     {
+        ctrl->num_pred++;
+
+        if (arguments.predictor == "bimodal")
+        {
             
-    //     }
-    //     else if (arguments.predictor == "gshare")
-    //     {
+        }
+        else if (arguments.predictor == "gshare")
+        {
             
-    //     }
-    //     else if (arguments.predictor == "hybrid")
-    //     {
+        }
+        else if (arguments.predictor == "hybrid")
+        {
             
-    //     }
-    //     else if (arguments.predictor == "smith")
-    //     {
-            
-    //     }   
-    // }
+        }
+        else if (arguments.predictor == "smith")
+        {
+            ctrl->num_misses += ctrl->s->run(current_branch);
+        }   
+    }
+
+    print_results(arguments, ctrl);
 
     delete ctrl;
 }
@@ -93,6 +127,6 @@ int main(int argc, char **argv)
 
     std::chrono::duration<double> elapsed_time = end - start;
     std::cout << "ELAPSED TIME:\t" << elapsed_time.count() << "s ";
-    std::cout << "(" << ((elapsed_time.count() <= 120.0) ? "GOOD" : "TOO LONG") << ")" << std::endl;
+    std::cout << "(" << ((elapsed_time.count() <= 120.0) ? "\033[92mGOOD\033[m" : "\033[91mTOO LONG\033[m") << ")" << std::endl;
     return 0;
 }
