@@ -10,7 +10,7 @@ namespace utils
     {
         // TODO: Change to unsigned int
         std::string address;
-        char state;
+        char outcome;
     } branch;
 
     utils::branch process_branch(std::string address, char state);

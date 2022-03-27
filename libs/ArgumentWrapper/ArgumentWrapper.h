@@ -13,7 +13,7 @@ class ArgumentWrapper
         int M2;
         int K;
         int N;
-        std::string predictor;
+        std::string predictor;          // smith, bimodal, gshare, and hybrid
         std::string trace_file;
 
         ArgumentWrapper (int argc, char **argv);

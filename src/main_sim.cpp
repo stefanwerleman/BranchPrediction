@@ -44,33 +44,33 @@ void run_sim(ArgumentWrapper arguments)
         ctrl = new Controller(s);
     }
 
-    // std::string in;
+    std::string in;
 
-    // while (file >> in)
-    // {
-    //     std::string address = in;
+    while (file >> in)
+    {
+        std::string address = in;
 
-    //     file >> in;
-    //     char state = in[0];
-    //     utils::branch current_branch = utils::process_branch(address, state);
+        file >> in;
+        char outcome = in[0];
+        utils::branch current_branch = utils::process_branch(address, outcome);
         
-    //     if (arguments.predictor == "bimodal")
-    //     {
+        if (arguments.predictor == "bimodal")
+        {
             
-    //     }
-    //     else if (arguments.predictor == "gshare")
-    //     {
+        }
+        else if (arguments.predictor == "gshare")
+        {
             
-    //     }
-    //     else if (arguments.predictor == "hybrid")
-    //     {
+        }
+        else if (arguments.predictor == "hybrid")
+        {
             
-    //     }
-    //     else if (arguments.predictor == "smith")
-    //     {
+        }
+        else if (arguments.predictor == "smith")
+        {
             
-    //     }   
-    // }
+        }   
+    }
 
     delete ctrl;
 }
