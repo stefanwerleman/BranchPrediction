@@ -68,7 +68,8 @@ void run_sim(ArgumentWrapper arguments)
         }
         else if (arguments.predictor == "smith")
         {
-            
+            std::cout << (&current_branch) << std::endl;
+            ctrl->smith(current_branch);
         }   
     }
 

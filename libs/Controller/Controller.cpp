@@ -27,22 +27,24 @@ Controller::Controller (Smith &s)
     this->s = &s;
 }
 
-void bimodal(utils::branch br)
+void Controller::bimodal(utils::branch &br)
 {
     // Run predictor
 }
 
-void gshare(utils::branch br)
+void Controller::gshare(utils::branch &br)
 {
     // Run predictor
 }
 
-void hybrid(utils::branch br)
+void Controller::hybrid(utils::branch &br)
 {
     // Run predictor
 }
 
-void smith(utils::branch br)
+void Controller::smith(utils::branch &br)
 {
     // Run predictor
+    std::cout << (&br) << std::endl;
+    std::cout << std::endl;
 }

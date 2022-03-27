@@ -10,22 +10,21 @@
 
 class Controller
 {
-    protected:
+    public:
         Bimodal *b;
         GShare *g;
         Hybrid *h;
         Smith *s;
 
-    public:
         Controller (Bimodal &b);
         Controller (GShare &g);
         Controller (Hybrid &h);
         Controller (Smith &s);
 
-        void bimodal(utils::branch br);
-        void gshare(utils::branch br);
-        void hybrid(utils::branch br);
-        void smith(utils::branch br);
+        void bimodal(utils::branch &br);
+        void gshare(utils::branch &br);
+        void hybrid(utils::branch &br);
+        void smith(utils::branch &br);
 };
 
 #endif
