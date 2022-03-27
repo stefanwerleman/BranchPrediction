@@ -10,41 +10,27 @@
 Controller::Controller (Bimodal &b)
 {
     this->b = &b;
+    this->num_pred = 0;
+    this->num_misses = 0;
 }
 
 Controller::Controller (GShare &g)
 {
     this->g = &g;
+    this->num_pred = 0;
+    this->num_misses = 0;
 }
 
 Controller::Controller (Hybrid &h)
 {
     this->h = &h;
+    this->num_pred = 0;
+    this->num_misses = 0;
 }
 
 Controller::Controller (Smith &s)
 {
     this->s = &s;
-}
-
-void Controller::bimodal(utils::branch &br)
-{
-    // Run predictor
-}
-
-void Controller::gshare(utils::branch &br)
-{
-    // Run predictor
-}
-
-void Controller::hybrid(utils::branch &br)
-{
-    // Run predictor
-}
-
-void Controller::smith(utils::branch &br)
-{
-    // Run predictor
-    std::cout << (&br) << std::endl;
-    std::cout << std::endl;
+    this->num_pred = 0;
+    this->num_misses = 0;
 }

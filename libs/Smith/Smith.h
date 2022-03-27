@@ -2,15 +2,21 @@
 #define SMITH
 
 #include <string>
+#include "../utils/utils.h"
 
 class Smith
 {
     public:
         unsigned int B;
-        unsigned int smith_bit;
-        std::string tracefile;
+        unsigned int max;
+        unsigned int mid;
 
-        void run(void);
+        // Will be used as counter and final counter content
+        unsigned int smith_bit;
+
+        Smith (unsigned int B);
+        
+        unsigned int run(utils::branch &br);
 };
 
 #endif
