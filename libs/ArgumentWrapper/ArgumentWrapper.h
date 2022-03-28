@@ -8,11 +8,11 @@
 class ArgumentWrapper
 {
     public:
-        int B;
-        int M1;
-        int M2;
-        int K;
-        int N;
+        unsigned int B;
+        unsigned int M1;
+        unsigned int M2;
+        unsigned int K;
+        unsigned int N;
         std::string predictor;          // smith, bimodal, gshare, and hybrid
         std::string trace_file;
 

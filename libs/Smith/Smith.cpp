@@ -1,4 +1,3 @@
-#include <bitset>
 #include <math.h>
 #include "Smith.h"
 #include "../utils/utils.h"
@@ -16,10 +15,6 @@ unsigned int Smith::run(utils::branch &br)
     char actual = br.outcome;
     char pred_dir = (this->smith_bit >= this->mid) ? 't' : 'n';
 
-    // std::cout << this->mid << std::endl;
-    // std::cout << "Predicted: " << pred_dir << ", Actual: " << actual << std::endl;
-    // std::cout << std::bitset<2>(this->smith_bit) << std::endl;
-
     if (actual == 't' && this->smith_bit < this->max)      // Move up
     {
         this->smith_bit++;
@@ -28,9 +23,6 @@ unsigned int Smith::run(utils::branch &br)
     {
         this->smith_bit--;
     }
-
-    // std::cout << std::bitset<2>(this->smith_bit) << std::endl;
-    // std::cout << std::endl;
-
+    
     return (unsigned int)(pred_dir != actual);
 }

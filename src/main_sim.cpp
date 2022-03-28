@@ -1,3 +1,4 @@
+#include <bitset>
 #include <chrono>
 #include <fstream>
 #include <iomanip>
@@ -55,7 +56,7 @@ void run_sim(ArgumentWrapper arguments)
 
     if (arguments.predictor == "bimodal")
     {
-        Bimodal b;
+        Bimodal b(arguments.M2);
         ctrl = new Controller(b);
     }
     else if (arguments.predictor == "gshare")
@@ -74,21 +75,31 @@ void run_sim(ArgumentWrapper arguments)
         ctrl = new Controller(s);
     }
 
+    unsigned mask;
+    char outcome;
     std::string in;
+    std::string  address;
+    utils::branch current_branch;
 
     while (file >> in)
     {
-        std::string address = in;
+        address = in;
 
         file >> in;
-        char outcome = in[0];
-        utils::branch current_branch = utils::process_branch(address, outcome);
-        
+        outcome = in[0];
+
+        current_branch.outcome = outcome;
+        current_branch.address = address;
+
+        mask = stoi(address, 0, 16);
+        std::bitset<32> binary_addr(mask);
+        current_branch.addr_val = binary_addr >> 2;
+
         ctrl->num_pred++;
 
         if (arguments.predictor == "bimodal")
         {
-            
+            ctrl->num_misses += ctrl->b->run(current_branch);
         }
         else if (arguments.predictor == "gshare")
         {
