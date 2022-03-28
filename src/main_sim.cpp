@@ -27,6 +27,11 @@ void print_results(ArgumentWrapper arguments, Controller *ctrl)
     if (arguments.predictor == "bimodal")
     {
         std::cout << "FINAL BIMODAL CONTENTS" << std::endl;
+        std::cout << ctrl->b->size << std::endl;
+        for (int entry = 0; entry < ctrl->b->size; entry++)
+        {
+            std::cout << entry << "\t" << ctrl->b->table[entry] << std::endl;
+        }
     }
     else if (arguments.predictor == "gshare")
     {
@@ -58,6 +63,7 @@ void run_sim(ArgumentWrapper arguments)
     {
         Bimodal b(arguments.M2);
         ctrl = new Controller(b);
+        std::cout << ctrl->b->size << std::endl;
     }
     else if (arguments.predictor == "gshare")
     {
