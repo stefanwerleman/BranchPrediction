@@ -19,10 +19,10 @@ class Controller
         unsigned int num_pred;
         unsigned int num_misses;
 
-        Controller (Bimodal &b);
-        Controller (GShare &g);
-        Controller (Hybrid &h);
-        Controller (Smith &s);
+        Controller (Bimodal *b);
+        Controller (GShare *g);
+        Controller (Hybrid *h);
+        Controller (Smith *s);
 };
 
 #endif

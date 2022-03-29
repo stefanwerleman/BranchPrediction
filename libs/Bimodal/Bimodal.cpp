@@ -42,11 +42,11 @@ unsigned int Bimodal::run(utils::branch &br)
 
     if (actual == 't' && this->table[index] < this->max)
     {
-        this->table[index]++;
+        (this->table[index])++;
     }
     else if (actual == 'n' && this->table[index] > 0)
     {
-        this->table[index]--;
+        (this->table[index])--;
     }
 
     return (unsigned int)(pred_dir != actual);

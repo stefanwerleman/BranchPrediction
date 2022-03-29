@@ -21,13 +21,13 @@ void print_results(ArgumentWrapper arguments, Controller *ctrl)
     std::cout << "number of predictions:     " << ctrl->num_pred << std::endl;
     std::cout << "number of mispredictions:  " << ctrl->num_misses << std::endl;
     
+    // TODO: Modify precision to match correct outputs (show trailing zeros)  
     double miss_rate = ((double)ctrl->num_misses / ctrl->num_pred) * 100;
     std::cout << "misprediction rate:        " << std::setprecision(4) << miss_rate << "%" << std::endl;
 
     if (arguments.predictor == "bimodal")
     {
         std::cout << "FINAL BIMODAL CONTENTS" << std::endl;
-        std::cout << ctrl->b->size << std::endl;
         for (int entry = 0; entry < ctrl->b->size; entry++)
         {
             std::cout << entry << "\t" << ctrl->b->table[entry] << std::endl;
@@ -58,29 +58,29 @@ void run_sim(ArgumentWrapper arguments)
     }
 
     Controller *ctrl = NULL;
+    Bimodal *b = NULL;
+    Smith *s = NULL;
 
     if (arguments.predictor == "bimodal")
     {
-        Bimodal b(arguments.M2);
+        b = new Bimodal(arguments.M2);
         ctrl = new Controller(b);
-        std::cout << ctrl->b->size << std::endl;
     }
     else if (arguments.predictor == "gshare")
     {
         GShare g;
-        ctrl = new Controller(g);
+        ctrl = new Controller(&g);
     }
     else if (arguments.predictor == "hybrid")
     {
         Hybrid h;
-        ctrl = new Controller(h);
+        ctrl = new Controller(&h);
     }
     else if (arguments.predictor == "smith")
     {
-        Smith s(arguments.B);
+        s = new Smith(arguments.B);
         ctrl = new Controller(s);
     }
-
     unsigned mask;
     char outcome;
     std::string in;
@@ -123,6 +123,8 @@ void run_sim(ArgumentWrapper arguments)
 
     print_results(arguments, ctrl);
 
+    delete b;
+    delete s;
     delete ctrl;
 }
 
