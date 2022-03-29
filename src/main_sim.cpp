@@ -36,14 +36,22 @@ void print_results(ArgumentWrapper arguments, Controller *ctrl)
     else if (arguments.predictor == "gshare")
     {
         std::cout << "FINAL GSHARE CONTENTS" << std::endl;
+        // for (int entry = 0; entry < ctrl->g->size; entry++)
+        // {
+        //     std::cout << entry << "\t" << ctrl->g->table[entry] << std::endl;
+        // }
     }
     else if (arguments.predictor == "hybrid")
     {
         std::cout << "FINAL CHOOSER CONTENTS" << std::endl;
+        for (int entry = 0; entry < ctrl->b->size; entry++)
+        {
+            std::cout << entry << "\t" << ctrl->b->table[entry] << std::endl;
+        }
     }
     else if (arguments.predictor == "smith")
     {
-    std::cout << "FINAL COUNTER CONTENT:     " << ctrl->s->smith_bit << std::endl;
+        std::cout << "FINAL COUNTER CONTENT:     " << ctrl->s->smith_bit << std::endl;
     }
 }
 

@@ -18,7 +18,6 @@ class GShare : public Bimodal
         GShare (unsigned int M, unsigned int N);
 
         unsigned int run(utils::branch &br);
-        unsigned int get_index(std::bitset<32> value);
 };
 
 #endif
