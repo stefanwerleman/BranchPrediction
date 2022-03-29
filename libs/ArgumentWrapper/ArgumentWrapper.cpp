@@ -45,7 +45,7 @@ std::ostream& operator << (std::ostream &output, ArgumentWrapper arguments)
 
     if (arguments.predictor == "bimodal")
     {
-        
+        output << arguments.M2 << " ";
     }
     else if (arguments.predictor == "gshare")
     {

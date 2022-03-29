@@ -1,6 +1,7 @@
 #ifndef UTILS
 #define UTILS
 
+#include <bitset>
 #include <iostream>
 #include <string>
 
@@ -8,12 +9,16 @@ namespace utils
 {
     typedef struct branch
     {
-        // TODO: Change to unsigned int
         std::string address;
         char outcome;
+        std::bitset<32> addr_val;
     } branch;
 
-    utils::branch process_branch(std::string address, char state);
+//     typedef struct entry
+//     {
+//         std::string address;
+//         un
+//     }
 }
 
 #endif

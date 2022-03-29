@@ -7,30 +7,30 @@
 #include "../Hybrid/Hybrid.h"
 #include "../Smith/Smith.h"
 
-Controller::Controller (Bimodal &b)
+Controller::Controller (Bimodal *b)
 {
-    this->b = &b;
+    this->b = b;
     this->num_pred = 0;
     this->num_misses = 0;
 }
 
-Controller::Controller (GShare &g)
+Controller::Controller (GShare *g)
 {
-    this->g = &g;
+    this->g = g;
     this->num_pred = 0;
     this->num_misses = 0;
 }
 
-Controller::Controller (Hybrid &h)
+Controller::Controller (Hybrid *h)
 {
-    this->h = &h;
+    this->h = h;
     this->num_pred = 0;
     this->num_misses = 0;
 }
 
-Controller::Controller (Smith &s)
+Controller::Controller (Smith *s)
 {
-    this->s = &s;
+    this->s = s;
     this->num_pred = 0;
     this->num_misses = 0;
 }

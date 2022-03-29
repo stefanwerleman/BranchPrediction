@@ -12,10 +12,10 @@ SRC = ./src/
 TEST = ./tests/
 
 # List all your .cpp files here (source files, excluding header files)
-SIM_SRC = ./src/main_sim.cpp ./libs/ArgumentWrapper/ArgumentWrapper.cpp ./libs/utils/utils.cpp ./libs/Controller/Controller.cpp ./libs/Bimodal/Bimodal.cpp ./libs/GShare/GShare.cpp ./libs/Hybrid/Hybrid.cpp ./libs/Smith/Smith.cpp
+SIM_SRC = ./src/main_sim.cpp ./libs/ArgumentWrapper/ArgumentWrapper.cpp ./libs/Controller/Controller.cpp ./libs/Bimodal/Bimodal.cpp ./libs/GShare/GShare.cpp ./libs/Hybrid/Hybrid.cpp ./libs/Smith/Smith.cpp
 
 # List corresponding compiled object files here (.o files)
-SIM_OBJ = ./src/main_sim.o ./libs/ArgumentWrapper/ArgumentWrapper.o ./libs/utils/utils.o ./libs/Controller/Controller.o ./libs/Bimodal/Bimodal.o ./libs/GShare/GShare.o ./libs/Hybrid/Hybrid.o ./libs/Smith/Smith.o
+SIM_OBJ = ./src/main_sim.o ./libs/ArgumentWrapper/ArgumentWrapper.o ./libs/Controller/Controller.o ./libs/Bimodal/Bimodal.o ./libs/GShare/GShare.o ./libs/Hybrid/Hybrid.o ./libs/Smith/Smith.o
  
 #################################
 
