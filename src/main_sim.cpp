@@ -110,7 +110,7 @@ void run_sim(ArgumentWrapper arguments)
         }
         else if (arguments.predictor == "gshare")
         {
-            
+            ctrl->num_misses += ctrl->g->run(current_branch);
         }
         else if (arguments.predictor == "hybrid")
         {
