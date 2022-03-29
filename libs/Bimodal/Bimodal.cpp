@@ -3,14 +3,14 @@
 #include "Bimodal.h"
 #include "../utils/utils.h"
 
-Bimodal::Bimodal (unsigned int M2)
+Bimodal::Bimodal (unsigned int M)
 {
     this->max = 7;
     this->mid = 4;
 
-    this->M2 = M2;
+    this->M = M;
 
-    this->size = pow(2, this->M2);
+    this->size = pow(2, this->M);
     this->table = new unsigned int[this->size];
     for (int entry = 0; entry < this->size; entry++)
     {
@@ -28,7 +28,7 @@ Bimodal::~Bimodal (void)
 
 unsigned int Bimodal::get_index(std::bitset<32> value)
 {
-    unsigned int index = stoi(value.to_string().substr(32 - this->M2), nullptr, 2);
+    unsigned int index = stoi(value.to_string().substr(32 - this->M), nullptr, 2);
 
     return index;
 }
