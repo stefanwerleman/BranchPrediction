@@ -1,16 +1,23 @@
 #ifndef GSHARE
 #define GSHARE
 
+#include "../Bimodal/Bimodal.h"
 #include <string>
+#include "../utils/utils.h"
 
-class GShare
+class GShare : public Bimodal
 {
     public:
-        unsigned int M1;
         unsigned int N;
-        std::string tracefile;
+        unsigned int bhr;
+        unsigned int bhr_max;
 
-        void run();
+        bool toggle;
+
+        GShare (unsigned int M, unsigned int N);
+
+        void update_bhr(char actual);
+        unsigned int run(utils::branch &br);
 };
 
 #endif

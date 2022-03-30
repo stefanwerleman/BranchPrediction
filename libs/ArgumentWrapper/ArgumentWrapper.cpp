@@ -49,7 +49,7 @@ std::ostream& operator << (std::ostream &output, ArgumentWrapper arguments)
     }
     else if (arguments.predictor == "gshare")
     {
-        
+        output << arguments.M1 << " " << arguments.N << " ";
     }
     else if (arguments.predictor == "hybrid")
     {
