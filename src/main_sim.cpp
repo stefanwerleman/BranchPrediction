@@ -36,10 +36,10 @@ void print_results(ArgumentWrapper arguments, Controller *ctrl)
     else if (arguments.predictor == "gshare")
     {
         std::cout << "FINAL GSHARE CONTENTS" << std::endl;
-        // for (int entry = 0; entry < ctrl->g->size; entry++)
-        // {
-        //     std::cout << entry << "\t" << ctrl->g->table[entry] << std::endl;
-        // }
+        for (int entry = 0; entry < ctrl->g->size; entry++)
+        {
+            std::cout << entry << "\t" << ctrl->g->table[entry] << std::endl;
+        }
     }
     else if (arguments.predictor == "hybrid")
     {

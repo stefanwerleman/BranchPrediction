@@ -12,11 +12,11 @@ class GShare : public Bimodal
         unsigned int bhr;
         unsigned int bhr_max;
 
-        unsigned int i;
         bool toggle;
 
         GShare (unsigned int M, unsigned int N);
 
+        void update_bhr(char actual);
         unsigned int run(utils::branch &br);
 };
 
