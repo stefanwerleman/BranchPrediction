@@ -33,13 +33,17 @@ unsigned int Bimodal::get_index(std::bitset<32> value)
     return index;
 }
 
-unsigned int Bimodal::run(utils::branch &br)
+unsigned int Bimodal::is_miss_prediction(utils::branch &br, unsigned int index)
 {
-    unsigned int index = this->get_index(br.addr_val);
-
     char actual = br.outcome;
     char pred_dir = (this->table[index] >= this->mid) ? 't' : 'n';
+    return (unsigned int)(pred_dir != actual);
+}
 
+void Bimodal::update_table(utils::branch &br, unsigned int index)
+{
+    char actual = br.outcome;
+    
     if (actual == 't' && this->table[index] < this->max)
     {
         (this->table[index])++;
@@ -48,6 +52,4 @@ unsigned int Bimodal::run(utils::branch &br)
     {
         (this->table[index])--;
     }
-
-    return (unsigned int)(pred_dir != actual);
 }

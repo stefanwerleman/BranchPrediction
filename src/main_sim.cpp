@@ -91,6 +91,8 @@ void run_sim(ArgumentWrapper arguments)
         ctrl = new Controller(s);
     }
     unsigned mask;
+    unsigned int index;
+    unsigned int b_val;
     char outcome;
     std::string in;
     std::string  address;
@@ -114,11 +116,15 @@ void run_sim(ArgumentWrapper arguments)
 
         if (arguments.predictor == "bimodal")
         {
-            ctrl->num_misses += ctrl->b->run(current_branch);
+            index = ctrl->b->get_index(current_branch.addr_val);
+            ctrl->num_misses += ctrl->b->is_miss_prediction(current_branch, index);
+            ctrl->b->update_table(current_branch, index);
         }
         else if (arguments.predictor == "gshare")
         {
-            ctrl->num_misses += ctrl->g->run(current_branch);
+            index = ctrl->g->get_xor_index(current_branch);
+            ctrl->num_misses += ctrl->g->is_miss_prediction(current_branch, index);
+            ctrl->g->update_table(current_branch, index);
         }
         else if (arguments.predictor == "hybrid")
         {
