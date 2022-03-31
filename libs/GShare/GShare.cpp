@@ -33,23 +33,3 @@ unsigned int GShare::get_xor_index(utils::branch &br)
 
     return index;
 }
-
-// unsigned int GShare::run(utils::branch &br)
-// {
-//     char actual = br.outcome;    
-
-//     this->update_bhr(actual);
-
-//     char pred_dir = (this->table[index] >= this->mid) ? 't' : 'n';
-    
-//     if (actual == 't' && this->table[index] < this->max)
-//     {
-//         (this->table[index])++;
-//     }
-//     else if (actual == 'n' && this->table[index] > 0)
-//     {
-//         (this->table[index])--;
-//     }
-
-//     return (unsigned int)(pred_dir != actual);
-// }
