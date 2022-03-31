@@ -17,7 +17,8 @@ class GShare : public Bimodal
         GShare (unsigned int M, unsigned int N);
 
         void update_bhr(char actual);
-        unsigned int run(utils::branch &br);
+        unsigned int get_xor_index(utils::branch &br);
+        // unsigned int run(utils::branch &br);
 };
 
 #endif

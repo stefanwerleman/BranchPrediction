@@ -20,7 +20,8 @@ class Bimodal
         ~Bimodal (void);
 
         unsigned int get_index(std::bitset<32> value);
-        unsigned int run(utils::branch &br);
+        unsigned int is_miss_prediction(utils::branch &br, unsigned int index);
+        void update_table(utils::branch &br, unsigned int index);
 };
 
 #endif
