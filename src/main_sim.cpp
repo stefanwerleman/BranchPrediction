@@ -69,6 +69,7 @@ void run_sim(ArgumentWrapper arguments)
     Bimodal *b = NULL;
     Smith *s = NULL;
     GShare *g = NULL;
+    Hybrid *h = NULL;
 
     if (arguments.predictor == "bimodal")
     {
@@ -82,8 +83,8 @@ void run_sim(ArgumentWrapper arguments)
     }
     else if (arguments.predictor == "hybrid")
     {
-        Hybrid h;
-        ctrl = new Controller(&h);
+        h = new Hybrid(arguments.K, arguments.M1, arguments.N, arguments.M2);
+        ctrl = new Controller(h);
     }
     else if (arguments.predictor == "smith")
     {
@@ -141,6 +142,7 @@ void run_sim(ArgumentWrapper arguments)
     delete b;
     delete s;
     delete g;
+    delete h;
     delete ctrl;
 }
 

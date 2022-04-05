@@ -23,6 +23,7 @@ class Controller
         Controller (GShare *g);
         Controller (Hybrid *h);
         Controller (Smith *s);
+        ~Controller (void);
 };
 
 #endif
