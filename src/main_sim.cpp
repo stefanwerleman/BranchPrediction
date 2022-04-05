@@ -44,10 +44,22 @@ void print_results(ArgumentWrapper arguments, Controller *ctrl)
     else if (arguments.predictor == "hybrid")
     {
         std::cout << "FINAL CHOOSER CONTENTS" << std::endl;
-        // for (int entry = 0; entry < ctrl->b->size; entry++)
-        // {
-        //     std::cout << entry << "\t" << ctrl->b->table[entry] << std::endl;
-        // }
+        for (int i = 0; i < ctrl->h->size; i++)
+        {
+            std::cout << i << "\t" << ctrl->h->chooser_table[i] << std::endl;        
+        }
+
+        std::cout << "FINAL GSHARE CONTENTS" << std::endl;
+        for (int entry = 0; entry < ctrl->g->size; entry++)
+        {
+            std::cout << entry << "\t" << ctrl->g->table[entry] << std::endl;
+        }
+
+        std::cout << "FINAL BIMODAL CONTENTS" << std::endl;
+        for (int entry = 0; entry < ctrl->b->size; entry++)
+        {
+            std::cout << entry << "\t" << ctrl->b->table[entry] << std::endl;
+        }
     }
     else if (arguments.predictor == "smith")
     {
@@ -93,7 +105,6 @@ void run_sim(ArgumentWrapper arguments)
     }
     unsigned mask;
     unsigned int index;
-    unsigned int bi, gi;
     char outcome;
     std::string in;
     std::string  address;
@@ -129,7 +140,7 @@ void run_sim(ArgumentWrapper arguments)
         }
         else if (arguments.predictor == "hybrid")
         {
-
+            ctrl->run_hybrid(current_branch);
         }
         else if (arguments.predictor == "smith")
         {

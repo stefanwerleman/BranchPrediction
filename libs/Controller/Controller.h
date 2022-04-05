@@ -24,6 +24,8 @@ class Controller
         Controller (Hybrid *h);
         Controller (Smith *s);
         ~Controller (void);
+
+        void run_hybrid(utils::branch &br);
 };
 
 #endif

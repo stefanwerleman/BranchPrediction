@@ -13,12 +13,6 @@ namespace utils
         char outcome;
         std::bitset<32> addr_val;
     } branch;
-
-//     typedef struct entry
-//     {
-//         std::string address;
-//         un
-//     }
 }
 
 #endif
