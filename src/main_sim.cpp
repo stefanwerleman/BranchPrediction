@@ -92,7 +92,7 @@ void run_sim(ArgumentWrapper arguments)
     }
     unsigned mask;
     unsigned int index;
-    unsigned int b_val;
+    unsigned int bi, gi;
     char outcome;
     std::string in;
     std::string  address;
@@ -128,7 +128,7 @@ void run_sim(ArgumentWrapper arguments)
         }
         else if (arguments.predictor == "hybrid")
         {
-            
+
         }
         else if (arguments.predictor == "smith")
         {
