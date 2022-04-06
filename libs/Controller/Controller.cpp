@@ -22,14 +22,14 @@ Controller::Controller (GShare *g)
     this->num_misses = 0;
 }
 
-Controller::Controller (Hybrid *h)
+Controller::Controller (Hybrid *h, Bimodal *b, GShare *g)
 {
     this->h = h;
     this->num_pred = 0;
     this->num_misses = 0;
 
-    this->b = new Bimodal(h->M2);
-    this->g = new GShare(h->M1, h->N);
+    this->b = b;
+    this->g = g;
 }
 
 Controller::Controller (Smith *s)
@@ -39,52 +39,39 @@ Controller::Controller (Smith *s)
     this->num_misses = 0;
 }
 
-Controller::~Controller (void)
-{
-    if (this->b != NULL)
-    {
-        delete this->b;
-    }
-
-    if (this->g != NULL)
-    {
-        delete this->g;
-    }
-}
-
 void Controller::run_hybrid(utils::branch &br)
 {
-    unsigned int bi, gi, index;
     unsigned int count;
+    unsigned int bmiss, gmiss;
+    unsigned int bi, gi, index;
 
     bi = this->b->get_index(br.addr_val);
     gi = this->g->get_xor_index(br);
 
-    index = stoi(br.addr_val.to_string().substr(32 - this->h->K + 1), nullptr, 2);
 
+    index = stoi(br.addr_val.to_string().substr(32 - this->h->K), nullptr, 2);
+    char pred_dir = (this->h->chooser_table[index] >= this->h->mid) ? 'g' : 'b';
+    
     count = this->h->chooser_table[index];
-
-    if (count <= this->h->mid)
-    {
-        // Bimodal
-        this->b->update_table(br, bi);
-    }
-    else
-    {
-        // GShare
-        this->g->update_table(br, gi);
-    }
-
-    unsigned int bmiss, gmiss;
-
     bmiss = this->b->is_miss_prediction(br, bi);
     gmiss = this->g->is_miss_prediction(br, gi);
 
-    if (bmiss == 0 && gmiss == 1)
+    if (count <= this->h->mid)
+    {
+        this->b->update_table(br, bi);
+        this->num_misses += bmiss;
+    }
+    else
+    {
+        this->g->update_table(br, gi);
+        this->num_misses += gmiss;
+    }
+
+    if (bmiss == 0 && gmiss == 1 && this->h->chooser_table[index] > 0)
     {
         this->h->chooser_table[index]--;
     }
-    else if (bmiss == 1 && gmiss == 0)
+    else if (bmiss == 1 && gmiss == 0 && this->h->chooser_table[index] < this->h->max)
     {
         this->h->chooser_table[index]++;
     }

@@ -53,7 +53,10 @@ std::ostream& operator << (std::ostream &output, ArgumentWrapper arguments)
     }
     else if (arguments.predictor == "hybrid")
     {
-        
+        output << arguments.K << " ";
+        output << arguments.M1 << " ";
+        output << arguments.N << " ";
+        output << arguments.M2 << " ";
     }
     else if (arguments.predictor == "smith")
     {
