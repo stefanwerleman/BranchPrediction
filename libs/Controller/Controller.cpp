@@ -6,6 +6,7 @@
 #include "../GShare/GShare.h"
 #include "../Hybrid/Hybrid.h"
 #include "../Smith/Smith.h"
+#include "../utils/utils.h"
 
 Controller::Controller (Bimodal *b)
 {
@@ -21,14 +22,14 @@ Controller::Controller (GShare *g)
     this->num_misses = 0;
 }
 
-Controller::Controller (Hybrid *h)
+Controller::Controller (Hybrid *h, Bimodal *b, GShare *g)
 {
     this->h = h;
     this->num_pred = 0;
     this->num_misses = 0;
 
-    this->b = new Bimodal(h->M2);
-    this->g = new GShare(h->M1, h->N);
+    this->b = b;
+    this->g = g;
 }
 
 Controller::Controller (Smith *s)
@@ -38,15 +39,40 @@ Controller::Controller (Smith *s)
     this->num_misses = 0;
 }
 
-Controller::~Controller (void)
+void Controller::run_hybrid(utils::branch &br)
 {
-    if (this->b != NULL)
+    unsigned int count;
+    unsigned int bmiss, gmiss;
+    unsigned int bi, gi, index;
+
+    bi = this->b->get_index(br.addr_val);
+    gi = this->g->get_xor_index(br);
+
+
+    index = stoi(br.addr_val.to_string().substr(32 - this->h->K), nullptr, 2);
+    char pred_dir = (this->h->chooser_table[index] >= this->h->mid) ? 'g' : 'b';
+    
+    count = this->h->chooser_table[index];
+    bmiss = this->b->is_miss_prediction(br, bi);
+    gmiss = this->g->is_miss_prediction(br, gi);
+
+    if (count <= this->h->mid)
     {
-        delete this->b;
+        this->b->update_table(br, bi);
+        this->num_misses += bmiss;
+    }
+    else
+    {
+        this->g->update_table(br, gi);
+        this->num_misses += gmiss;
     }
 
-    if (this->g != NULL)
+    if (bmiss == 0 && gmiss == 1 && this->h->chooser_table[index] > 0)
     {
-        delete this->g;
+        this->h->chooser_table[index]--;
+    }
+    else if (bmiss == 1 && gmiss == 0 && this->h->chooser_table[index] < this->h->max)
+    {
+        this->h->chooser_table[index]++;
     }
 }

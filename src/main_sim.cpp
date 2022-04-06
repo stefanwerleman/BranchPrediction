@@ -44,10 +44,22 @@ void print_results(ArgumentWrapper arguments, Controller *ctrl)
     else if (arguments.predictor == "hybrid")
     {
         std::cout << "FINAL CHOOSER CONTENTS" << std::endl;
-        // for (int entry = 0; entry < ctrl->b->size; entry++)
-        // {
-        //     std::cout << entry << "\t" << ctrl->b->table[entry] << std::endl;
-        // }
+        for (int i = 0; i < ctrl->h->size; i++)
+        {
+            std::cout << i << "\t" << ctrl->h->chooser_table[i] << std::endl;        
+        }
+
+        std::cout << "FINAL GSHARE CONTENTS" << std::endl;
+        for (int entry = 0; entry < ctrl->g->size; entry++)
+        {
+            std::cout << entry << "\t" << ctrl->g->table[entry] << std::endl;
+        }
+
+        std::cout << "FINAL BIMODAL CONTENTS" << std::endl;
+        for (int entry = 0; entry < ctrl->b->size; entry++)
+        {
+            std::cout << entry << "\t" << ctrl->b->table[entry] << std::endl;
+        }
     }
     else if (arguments.predictor == "smith")
     {
@@ -84,7 +96,9 @@ void run_sim(ArgumentWrapper arguments)
     else if (arguments.predictor == "hybrid")
     {
         h = new Hybrid(arguments.K, arguments.M1, arguments.N, arguments.M2);
-        ctrl = new Controller(h);
+        b = new Bimodal(h->M2);
+        g = new GShare(h->M1, h->N);
+        ctrl = new Controller(h, b, g);
     }
     else if (arguments.predictor == "smith")
     {
@@ -93,7 +107,6 @@ void run_sim(ArgumentWrapper arguments)
     }
     unsigned mask;
     unsigned int index;
-    unsigned int bi, gi;
     char outcome;
     std::string in;
     std::string  address;
@@ -129,7 +142,7 @@ void run_sim(ArgumentWrapper arguments)
         }
         else if (arguments.predictor == "hybrid")
         {
-
+            ctrl->run_hybrid(current_branch);
         }
         else if (arguments.predictor == "smith")
         {
@@ -139,16 +152,36 @@ void run_sim(ArgumentWrapper arguments)
 
     print_results(arguments, ctrl);
 
-    delete b;
-    delete s;
-    delete g;
-    delete h;
-    delete ctrl;
+    if (b != NULL)
+    {
+        delete b;
+    }
+
+    if (s != NULL)
+    {
+        delete s;
+    }
+
+    if (g != NULL)
+    {
+        delete g;
+    }
+
+    if (h != NULL)
+    {
+        delete h;
+    }
+
+    if (ctrl != NULL)
+    {
+        delete ctrl;
+    }
 }
 
 int main(int argc, char **argv)
 {
-    auto start = std::chrono::system_clock::now();
+    // Uncomment to measure time.
+    // auto start = std::chrono::system_clock::now();
 
     if (argc < 4 || argc > 7)
     {
@@ -160,10 +193,10 @@ int main(int argc, char **argv)
 
     run_sim(arguments);
 
-    auto end = std::chrono::system_clock::now();
-
-    std::chrono::duration<double> elapsed_time = end - start;
-    std::cout << "ELAPSED TIME:\t" << elapsed_time.count() << "s ";
-    std::cout << "(" << ((elapsed_time.count() <= 120.0) ? "\033[92mGOOD\033[m" : "\033[91mTOO LONG\033[m") << ")" << std::endl;
+    // Uncomment to measure time.
+    // auto end = std::chrono::system_clock::now();
+    // std::chrono::duration<double> elapsed_time = end - start;
+    // std::cout << "ELAPSED TIME:\t" << elapsed_time.count() << "s ";
+    // std::cout << "(" << ((elapsed_time.count() <= 120.0) ? "\033[92mGOOD\033[m" : "\033[91mTOO LONG\033[m") << ")" << std::endl;
     return 0;
 }

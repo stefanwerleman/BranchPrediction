@@ -21,9 +21,10 @@ class Controller
 
         Controller (Bimodal *b);
         Controller (GShare *g);
-        Controller (Hybrid *h);
+        Controller (Hybrid *h, Bimodal *b, GShare *g);
         Controller (Smith *s);
-        ~Controller (void);
+
+        void run_hybrid(utils::branch &br);
 };
 
 #endif
