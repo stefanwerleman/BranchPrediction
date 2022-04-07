@@ -21,9 +21,9 @@ void print_results(ArgumentWrapper arguments, Controller *ctrl)
     std::cout << "number of predictions:     " << ctrl->num_pred << std::endl;
     std::cout << "number of mispredictions:  " << ctrl->num_misses << std::endl;
     
-    // TODO: Modify precision to match correct outputs (show trailing zeros)  
+    std::cout << std::fixed;  
     double miss_rate = ((double)ctrl->num_misses / ctrl->num_pred) * 100;
-    std::cout << "misprediction rate:        " << std::setprecision(4) << miss_rate << "%" << std::endl;
+    std::cout << "misprediction rate:        " << std::setprecision(2) << miss_rate << "%" << std::endl;
 
     if (arguments.predictor == "bimodal")
     {
